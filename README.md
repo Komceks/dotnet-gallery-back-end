@@ -15,16 +15,6 @@ The Spring project has three Maven modules. This .NET solution has three project
 | `bl`                  | `Gallery.Bl`     | Services, DbContext, search logic, internal BL models    |
 | `app`                 | `Gallery.App`    | Controllers, DTOs, multipart handling, composition root  |
 
-## Prerequisites
-
-1. **.NET 10 SDK** — https://dotnet.microsoft.com/download
-2. **Docker** (for Postgres + pgAdmin)
-3. **VS Code** with the **C# Dev Kit** extension (auto-suggested on open)
-4. **EF Core CLI tools** — one-time install:
-   ```bash
-   dotnet tool install --global dotnet-ef
-   ```
-
 ## Run it
 
 ```bash
@@ -50,12 +40,6 @@ Then in the frontend repo:
 npm install
 npm start    # ng serve with proxy
 ```
-
-## VS Code workflow
-
-- **F5** → builds and launches with debugger attached.
-- **Ctrl/Cmd+Shift+B** → runs the `build` task.
-- **Ctrl/Cmd+Shift+P → "Tasks: Run Task" → "ef-migrations-add"** → adds a new migration interactively.
 
 ## API endpoints (identical contract to Spring backend)
 
@@ -95,10 +79,3 @@ npm start    # ng serve with proxy
 2. **`Gallery.Bl/Services/ImageService.cs`** — see `SearchAsync`; this is ~40 lines of LINQ doing what `CustomImageRepositoryImpl` + `ImageSpecification` do in ~300 lines of JPA Criteria.
 3. **`Gallery.Bl/DependencyInjection.cs`** — what `@Service`/`@Repository` annotations are doing behind the scenes in Spring.
 4. **`Gallery.App/Mappers/MultipartReader.cs`** — the one spot ASP.NET is *less* ergonomic than Spring (no auto-deserialize of JSON multipart parts).
-
-## Known shortcuts taken (worth fixing as you learn)
-
-- **No global exception handler.** Spring has `@ControllerAdvice`; in ASP.NET you'd add an `IExceptionHandler` or `UseExceptionHandler` middleware.
-- **Auto-migrate on startup.** Convenient for learning, not what you'd do in production.
-- **Validation is partly manual.** A more idiomatic next step is FluentValidation, or move per-action checks into `IValidatableObject` / model binders.
-- **No tests.** Add a `Gallery.Tests` project with xUnit + `WebApplicationFactory<Program>` for integration tests — same role as Spring's `@SpringBootTest`.
