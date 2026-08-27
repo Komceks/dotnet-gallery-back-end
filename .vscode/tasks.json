@@ -1,0 +1,48 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/Gallery.sln",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary;ForceNoAlign"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "ef-migrations-add",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "ef", "migrations", "add", "${input:migrationName}",
+        "--project", "${workspaceFolder}/Gallery.Bl/Gallery.Bl.csproj",
+        "--startup-project", "${workspaceFolder}/Gallery.App/Gallery.App.csproj"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "ef-database-update",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "ef", "database", "update",
+        "--project", "${workspaceFolder}/Gallery.Bl/Gallery.Bl.csproj",
+        "--startup-project", "${workspaceFolder}/Gallery.App/Gallery.App.csproj"
+      ],
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "migrationName",
+      "type": "promptString",
+      "description": "Migration name (e.g. Initial)",
+      "default": "Initial"
+    }
+  ]
+}

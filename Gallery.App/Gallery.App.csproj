@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Gallery.App</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- EF Core tooling so `dotnet ef migrations add ...` works in this project. -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <!-- Swagger UI (Spring's swagger-ui equivalent). -->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gallery.Bl\Gallery.Bl.csproj" />
+    <ProjectReference Include="..\Gallery.Model\Gallery.Model.csproj" />
+  </ItemGroup>
+
+</Project>
